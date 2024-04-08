@@ -1,0 +1,53 @@
+<div class="mb-3" style="max-width: 300px; margin: auto">
+  <label for="prdCat" class="form-label">Category</label>
+  <!--<select #selectedCatId class="form-select form-select-lg" name="cat" id="prdCat" (change)="displayCatPrds(#selectedCatId)">-->
+  <select
+    class="form-select form-select-lg"
+    name="cat"
+    id="prdCat"
+    [(ngModel)]="selectCatId"
+  >
+    <option selected value="0">All</option>
+    <option *ngFor="let c of categories" [value]="c.Id">
+      {{ c.Name }}
+    </option>
+  </select>
+</div>
+<app-products
+  [recievedCategoryId]="selectCatId"
+  (orderCreated)="onOrderCreated($event)"
+></app-products>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Count</th>
+      <th scope="col">Item Price</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of cardItems">
+      <th scope="row">1</th>
+      <td>{{ item.productName }}</td>
+      <td>{{ item.count }}</td>
+      <td>{{ item.itemPrice }}</td>
+      <td>{{ item.totalPrice }}</td>
+      <td><input type="button" class="btn btn-danger" value="Delete" /></td>
+      <!-- // (click)="DeleteItem(item)" -->
+    </tr>
+  </tbody>
+</table>
+<hr />
+<div class="row">
+  <h4>Total OrderPrice : {{ OrderTotalPrice }}</h4>
+  <input
+    type="button"
+    class="btn btn-success"
+    value="Place Oreder"
+    (click)="placeOreder()"
+  />
+</div>

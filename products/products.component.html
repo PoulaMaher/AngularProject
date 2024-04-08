@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="card-group col-4" *ngFor="let prd of categoryProducts">
+    <ng-container *ngIf="prd.Quantity > 0">
+      <div
+        class="card m-5"
+        style="max-width: 300px"
+        BorderShadow
+        BorderColor="green"
+      >
+        <img src="{{ prd.ImgURL }}" class="card-img-top" alt="..." />
+        <div
+          class="card-body"
+          [ngStyle]="{
+            'background-color': prd.Quantity <= 1 ? 'yellow' : 'white'
+          }"
+        >
+          <h5 class="card-title">{{ prd.Name }}</h5>
+          <p class="card-text">Price : {{ prd.Price | currency }}</p>
+          <p class="card-text">Quantity : {{ prd.Quantity }}</p>
+          <div class="d-grid">
+            <div class="row">
+              <input
+                type="text"
+                class="col-11 me-1"
+                #count
+                placeholder="Enter # of items"
+              />
+              <input
+                type="button"
+                class="btn btn-primary col-6 m-1"
+                value="Add To Card"
+                (click)="buy(prd, count.value)"
+              />
+              <input
+                type="button"
+                class="btn btn-primary col-5 mt-1 mb-1"
+                value="Details"
+                (click)="openPrdDetails(prd.Id)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
